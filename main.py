@@ -3,7 +3,6 @@ import ctypes
 import datetime
 import os
 import pathlib
-import random
 import shutil
 import threading
 import time
@@ -11,8 +10,6 @@ import time
 import bs4
 import cloudscraper
 import dotenv
-import playsound
-from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 
 SOUNDS_DIR = pathlib.Path(__file__).parent.resolve() / "sounds"
 SOUND_PATHS = tuple(map(str, SOUNDS_DIR.glob("**/*")))
@@ -26,20 +23,8 @@ ADS_URL = "https://ru.aruodas.lt/butu-nuoma/vilniuje/?FRoomNumMin=2&FRoomNumMax=
 scraper = cloudscraper.create_scraper(browser={"custom": "ScraperBot/1.0"})
 
 
-def play_random_sound(volume: float | None = None) -> None:
-    interface = ctypes.cast(
-        AudioUtilities.GetSpeakers().Activate(
-            IAudioEndpointVolume._iid_, comtypes.CLSCTX_ALL, None
-        ),
-        ctypes.POINTER(IAudioEndpointVolume),
-    )
-    previous_volume = interface.GetMasterVolumeLevelScalar()  # type: ignore
-    if volume is not None:
-        interface.SetMasterVolumeLevelScalar(volume, None)  # type: ignore
-
-    playsound.playsound(random.choice(SOUND_PATHS))
-
-    interface.SetMasterVolumeLevelScalar(previous_volume, None)  # type: ignore
+def play_random_sound() -> None:
+    print('Found!!!!!!!!!') # type: ignore
 
 
 def print_notification(message: object) -> None:
