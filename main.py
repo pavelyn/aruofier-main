@@ -10,7 +10,6 @@ import time
 
 import bs4
 import cloudscraper
-import comtypes
 import dotenv
 import playsound
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
@@ -77,7 +76,7 @@ def get_ad_links(adverts: list[bs4.Tag]) -> list[str]:
 
 
 def main() -> None:
-    comtypes.CoInitialize()
+    #comtypes.CoInitialize()
     cache: list[str] = []
     while True:
         links = get_ad_links(get_page_ads(get_page_content(ADS_URL)))
